@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS `ADA_REFERENCE_DATA` (
+ `ID` int(11) NOT NULL AUTO_INCREMENT,
+ `TYPE` varchar(255),
+ `VALUE` varchar(255),
+ `SORT_ORDER` int(11),
+ `IS_ACTIVE` tinyint(1),
+ `CREATED_BY` varchar(255),
+ `CREATED_ON` datetime,
+ `MODIFIED_BY` varchar(255),
+ `MODIFIED_ON` datetime,
+ PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
