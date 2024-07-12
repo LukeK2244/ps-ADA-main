@@ -362,6 +362,35 @@ CREATE TABLE IF NOT EXISTS `ADA_EVENT_HISTORY` (
  `IS_ACTIVE` tinyint(1) NOT NULL DEFAULT 1,
  PRIMARY KEY (`EVENT_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ADA_OBJECT` (
+ `OBJECT_ID` int(11) NOT NULL AUTO_INCREMENT,
+ `PROJECT_ID` int(11) DEFAULT NULL,
+ `VERSION_ID` int(11) DEFAULT NULL,
+ `OBJECT_TYPE_ID` int(11) DEFAULT NULL,
+ `PARENT_OBJECT_ID` int(11) DEFAULT NULL,
+ `NAME` varchar(255) DEFAULT NULL,
+ `UUID` varchar(255) DEFAULT NULL,
+ `IS_ACTIVE` bit(1) DEFAULT 1,
+ `CREATED_BY` varchar(255) DEFAULT NULL,
+ `CREATED_ON` datetime(6) DEFAULT NULL,
+ `MODIFIED_BY` varchar(255) DEFAULT NULL,
+ `MODIFIED_ON` datetime(6) DEFAULT NULL,
+ PRIMARY KEY (`OBJECT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ADA_OBJECT_ATTRIBUTE` (
+ `OBJECT_ATTRIBUTE_ID` int(11) NOT NULL AUTO_INCREMENT,
+ `OBJECT_ID` int(11) DEFAULT NULL,
+ `ATTRIBUTE_TYPE_ID` int(11) DEFAULT NULL,
+ `VALUE` varchar(255) DEFAULT NULL,
+ `IS_ACTIVE` bit(1) DEFAULT 1,
+ `CREATED_BY` varchar(255) DEFAULT NULL,
+ `CREATED_ON` datetime(6) DEFAULT NULL,
+ `MODIFIED_BY` varchar(255) DEFAULT NULL,
+ `MODIFIED_ON` datetime(6) DEFAULT NULL,
+ PRIMARY KEY (`OBJECT_ATTRIBUTE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CALL IDEM_SP_DDL_UTIL_MODIFY_FIELD_IF_EXISTS ('ADA_OBJECT_ATTRIBUTE', 'VALUE', 'varchar(1000) DEFAULT NULL', 'ATTRIBUTE_TYPE_ID');
 CREATE TABLE IF NOT EXISTS `ADA_PROJECT` (
  `PROJECT_ID` int(11) NOT NULL AUTO_INCREMENT,
  `TITLE` varchar(255),
@@ -420,6 +449,30 @@ CREATE TABLE IF NOT EXISTS `ADA_RECORD_TYPE` (
 
 CALL IDEM_SP_DDL_UTIL_ADD_FIELD_IF_NOT_EXISTS ('ADA_RECORD_TYPE', 'UUID', 'varchar(255)', 'ID');
 CALL IDEM_SP_DDL_UTIL_ADD_FIELD_IF_NOT_EXISTS ('ADA_RECORD_TYPE', 'TABLE_NAME', 'varchar(255)', 'ID');
+CREATE TABLE IF NOT EXISTS `ADA_REF_ATTRIBUTE_TYPE` (
+ `ATTRIBUTE_TYPE_ID` int(11) NOT NULL AUTO_INCREMENT,
+ `OBJECT_TYPE_ID` int(11) DEFAULT NULL,
+ `ATTRIBUTE_NAME` varchar(255) DEFAULT NULL,
+ `XPATH` varchar(255) DEFAULT NULL,
+ `IS_ACTIVE` bit(1) DEFAULT 1,
+ `CREATED_BY` varchar(255) DEFAULT 'SYSTEM',
+ `CREATED_ON` datetime(6) DEFAULT CURRENT_TIMESTAMP,
+ `MODIFIED_BY` varchar(255) DEFAULT 'SYSTEM',
+ `MODIFIED_ON` datetime(6) DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`ATTRIBUTE_TYPE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ADA_REF_OBJECT_TYPE` (
+ `OBJECT_TYPE_ID` int(11) NOT NULL AUTO_INCREMENT,
+ `PARENT_OBJECT_TYPE_ID` int(11) DEFAULT NULL,
+ `VALUE` varchar(255) DEFAULT NULL,
+ `XPATH` varchar(255) DEFAULT NULL,
+ `IS_ACTIVE` bit(1) DEFAULT 1,
+ `CREATED_BY` varchar(255) DEFAULT NULL,
+ `CREATED_ON` datetime(6) DEFAULT NULL,
+ `MODIFIED_BY` varchar(255) DEFAULT NULL,
+ `MODIFIED_ON` datetime(6) DEFAULT NULL,
+ PRIMARY KEY (`OBJECT_TYPE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE IF NOT EXISTS `ADA_REFERENCE_DATA` (
  `ID` int(11) NOT NULL AUTO_INCREMENT,
  `TYPE` varchar(255),
@@ -517,6 +570,185 @@ CALL IDEM_SP_DDL_UTIL_ADD_CONSTRAINT_IF_NOT_EXISTS('ADA_SECTION', 'ADA_SECTION_T
 CALL IDEM_SP_DDL_UTIL_ADD_CONSTRAINT_IF_NOT_EXISTS('ADA_SECTION_CONTENT', 'ADA_SECTION_CONTENT_ID_FK', 'FOREIGN KEY', 'FOREIGN KEY (`SECTION_ID`) REFERENCES `ADA_SECTION` (`SECTION_ID`)');
 
 
+TRUNCATE TABLE `ADA_REF_ATTRIBUTE_TYPE`;
+
+INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `ATTRIBUTE_NAME`, `XPATH`, `IS_ACTIVE`, `CREATED_BY`, `CREATED_ON`, `MODIFIED_BY`, `MODIFIED_ON`) VALUES
+-- 1-20 for connected system
+(1, 1, 'Name', '/connectedSystemHaul/connectedSystem/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(2, 1, 'UUID', '/connectedSystemHaul/connectedSystem/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(3, 1, 'Description', '/connectedSystemHaul/connectedSystem/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 21-40 for constant
+(21, 2, 'Name', '/contentHaul/constant/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(22, 2, 'UUID', '/contentHaul/constant/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(23, 2, 'Description', '/contentHaul/constant/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(24, 2, 'Type', '/contentHaul/constant/typedValue/type/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 41-60 for data store
+(41, 3, 'Name', '/dataStoreHaul/dataStore/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(42, 3, 'UUID', '/dataStoreHaul/dataStore/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(43, 3, 'Description', '/dataStoreHaul/dataStore/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 61-80 for data type TODO
+(61, 4, 'Name', '/*[local-name()=\'schema\']/*[local-name()=\'complexType\']/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(62, 4, 'UUID', '/*[local-name()=\'schema\']/*[local-name()=\'complexType\']/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(63, 4, 'Namespace', '/*[local-name()=\'schema\']/@targetNamespace', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 81-100 for decision
+(81, 5, 'Name', '/contentHaul/decision/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(82, 5, 'UUID', '/contentHaul/decision/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(83, 5, 'Description', '/contentHaul/decision/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 101-120 for Document
+(101, 6, 'Name', '/contentHaul/document/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(102, 6, 'Description', '/contentHaul/document/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(103, 6, 'UUID', '/contentHaul/document/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 121-140 for Expression Rule
+(121, 7, 'Name', '/contentHaul/rule/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(122, 7, 'UUID', '/contentHaul/rule/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(123, 7, 'Description', '/contentHaul/rule/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 141-160 for feed
+(141, 8, 'Name', '/tempoFeedHaul/tempoFeed/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(142, 8, 'Description', '/tempoFeedHaul/tempoFeed/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(143, 8, 'UUID', '/tempoFeedHaul/tempoFeed/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 161-180 for folder TODO
+(161, 9, 'Name', '/contentHaul\']/rulesFolder\' or name()=\'communityKnowledgeCenter\' or name()=\'folder\']/name\']/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(162, 9, 'Description', '/contentHaul\']/rulesFolder\' or name()=\'communityKnowledgeCenter\' or name()=\'folder\']/description\']/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(163, 9, 'UUID', '/contentHaul\']/rulesFolder\' or name()=\'communityKnowledgeCenter\' or name()=\'folder\']/uuid\']/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 181-200 for group
+(181, 10, 'Name', '/groupHaul/group/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(182, 10, 'Description', '/groupHaul/group/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(183, 10, 'UUID', '/groupHaul/group/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(184, 10, 'Parent Group', '/groupHaul/group/parentUuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(185, 10, 'Membership', '/groupHaul/group/memberPolicy/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(186, 10, 'Privacy Policy', '/groupHaul/group/viewingPolicy/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(187, 10, 'Visibility', '/groupHaul/group/securityMap/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(188, 10, 'Administrator Group', '/groupHaul/admins/groups/groupUuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 201-220 for integration
+(201, 11, 'Name', '/contentHaul/outboundIntegration/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(202, 11, 'UUID', '/contentHaul/outboundIntegration/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(203, 11, 'Description', '/contentHaul/outboundIntegration/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(204, 11, 'Uses Connected System', '/contentHaul/outboundIntegration/isConnectedSystemConnectionOptionSelected/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(205, 11, 'Type', '/contentHaul/outboundIntegration/integrationType/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 221-240 for interface
+(221, 12, 'Name', '/contentHaul/interface/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(222, 12, 'UUID', '/contentHaul/interface/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(223, 12, 'Description', '/contentHaul/interface/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 241-260 for process model TODO
+(241, 13, 'Name', '/processModelHaul/process_model_port/pm/meta/name/string-map/pair/value/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(242, 13, 'UUID', '/processModelHaul/process_model_port/pm/meta/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(243, 13, 'Data Management (Clean Up Action)', '/processModelHaul/process_model_port/pm/meta/cleanup-action/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(244, 13, 'Data Management (Archive Delay)', '/processModelHaul/process_model_port/pm/meta/auto-archive-delay/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(245, 13, 'Data Management (Delete Delay)', '/processModelHaul/process_model_port/pm/meta/auto-delete-delay/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(246, 13, 'Swimlane Assignment', '/processModelHaul/process_model_port/pm/lanes/lane/isLaneAssignment/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(248, 13, 'Description', '/processModelHaul/process_model_port/pm/meta/desc/string-map/pair/value/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(249, 13, 'Display Name', '/processModelHaul/process_model_port/pm/meta/process-name/string-map/pair/value/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(250, 13, 'Alert - Custom Settings', '/processModelHaul/process_model_port/pm/meta/pm-notification-settings/custom-settings/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(251, 13, 'Alert - Notify Initiator', '/processModelHaul/process_model_port/pm/meta/pm-notification-settings/notify-initiator/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(252, 13, 'Alert - Notify Owner', '/processModelHaul/process_model_port/pm/meta/pm-notification-settings/notify-owner/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(253, 13, 'Alert - Recipients Expression', '/processModelHaul/process_model_port/pm/meta/pm-notification-settings/recipients-exp/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(254, 13, 'Alert - Notify users and groups', '/processModelHaul/process_model_port/pm/meta/pm-notification-settings/usersandgroups/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 261-280 for process report
+(261, 14, 'Name', '/contentHaul/report/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(262, 14, 'Description', '/contentHaul/report/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(263, 14, 'UUID', '/contentHaul/report/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 281-300 for record type
+(281, 15, 'Name', '/recordTypeHaul/recordType/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(282, 15, 'Description', '/recordTypeHaul/recordType/a:description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(283, 15, 'UUID', '/recordTypeHaul/recordType/@a:uuid', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(284, 15, 'Table Name', '/recordTypeHaul/recordType/a:sourceConfiguration/friendlyName/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(285, 15, 'xsi:type', '/recordTypeHaul/recordType/a:source/@xsi:type', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 301-320 for report
+(301, 16, 'Name', '/tempoReportHaul/tempoReport/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(302, 16, 'Description', '/tempoReportHaul/tempoReport/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(303, 16, 'UUID', '/tempoReportHaul/tempoReport/@uuid', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 321-340 for site
+(321, 17, 'Name', '/siteHaul/site/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(322, 17, 'Description', '/siteHaul/site/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(323, 17, 'UUID', '/siteHaul/site/@uuid', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 341-360 for web API
+(341, 18, 'Name', '/webApiHaul/webApi/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(342, 18, 'Description', '/webApiHaul/webApi/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(343, 18, 'UUID', '/webApiHaul/webApi/@uuid', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 361-380 for knowledge center
+(361, 19, 'Name', '/contentHaul/communityKnowledgeCenter/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(362, 19, 'Description', '/contentHaul/communityKnowledgeCenter/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(363, 19, 'UUID', '/contentHaul/communityKnowledgeCenter/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 381-400 for group type
+(381, 20, 'Name', '/groupTypeHaul/groupType/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(382, 20, 'Description', '/groupTypeHaul/groupType/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(383, 20, 'UUID', '/groupTypeHaul/groupType/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 401-420 for process model folder
+(401, 21, 'Name', '/processModelFolderHaul/processModelFolder/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(402, 21, 'UUID', '/processModelFolderHaul/processModelFolder/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(403, 21, 'Description', '/processModelFolderHaul/processModelFolder/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 421-440 for application
+(421, 22, 'Name', '/applicationHaul/application/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(422, 22, 'UUID', '/applicationHaul/application/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(423, 22, 'Description', '/applicationHaul/application/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 441-460 for task report
+(441, 23, 'Name', '/taskReportHaul/taskReport/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(442, 23, 'Description', '/taskReportHaul/taskReport/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(443, 23, 'UUID', '/taskReportHaul/taskReport/@uuid', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 461-480 for database table
+
+-- 481-500 for database table column
+
+-- 501-520 for query rule
+(501, 26, 'Name', '/contentHaul/queryRule/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(502, 26, 'UUID', '/contentHaul/queryRule/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 521-540 for record type views
+(521, 101, 'Name', '/a:detailViewCfg/a:nameExpr/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(522, 101, 'URL stub', '/a:detailViewCfg/a:urlStub/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 541-560 for related actions
+(541, 102, 'Name', '/a:relatedActionCfg/a:staticTitleString/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(542, 102, 'uuid', '/a:relatedActionCfg/a:uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(543, 102, 'description', '/a:relatedActionCfg/a:staticDescriptionString/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 561-580 for record actions
+(561, 103, 'Name', '/a:recordListActionCfg/a:staticTitle/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(562, 103, 'uuid', '/a:recordListActionCfg/a:uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(563, 103, 'description', '/a:recordListActionCfg/a:staticDescription/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 581-600 for user filters
+(581, 104, 'Name', '/a:fieldCfg/a:facetLabelExpr/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(582, 104, 'UUID', '/a:fieldCfg/a:uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(583, 104, 'description', '/a:fieldCfg/a:description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 601-620 for source filters
+(601, 105, 'description', '/a:sourceConfiguration/sourceFilterExpr/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
+;
+TRUNCATE TABLE `ADA_REF_OBJECT_TYPE`;
+
+INSERT INTO `ADA_REF_OBJECT_TYPE` (`OBJECT_TYPE_ID`, `PARENT_OBJECT_TYPE_ID`, `VALUE`, `XPATH`, `IS_ACTIVE`, `CREATED_BY`, `CREATED_ON`, `MODIFIED_BY`, `MODIFIED_ON`) VALUES
+(1, NULL, 'Connected System', '/connectedSystemHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(2, NULL, 'Constant', '/contentHaul/constant', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(3, NULL, 'Data Store', '/dataStoreHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(4, NULL, 'Data Type', '/xsd:schema', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(5, NULL, 'Decision', '/contentHaul/decision', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(6, NULL, 'Document', '/contentHaul/document', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(7, NULL, 'Expression Rule', '/contentHaul/rule', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(8, NULL, 'Feed', '/tempoFeedHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(9, NULL, 'Rules Folder', '/contentHaul/rulesFolder', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(10, NULL, 'Group', '/groupHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(11, NULL, 'Integration', '/contentHaul/outboundIntegration', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(12, NULL, 'Interface', '/contentHaul/interface', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(13, NULL, 'Process Model', '/processModelHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(14, NULL, 'Process Report', '/contentHaul/report', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(15, NULL, 'Record Type', '/recordTypeHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(16, NULL, 'Report', '/tempoReportHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(17, NULL, 'Site', '/siteHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(18, NULL, 'Web API', '/webApiHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(19, NULL, 'Knowledge Center', '/contentHaul/communityKnowledgeCenter', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(20, NULL, 'Group Type', '/groupTypeHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(21, NULL, 'Process Model Folder', '/processModelFolderHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(22, NULL, 'Application', '/applicationHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(23, NULL, 'Task Report', '/taskReportHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(24, NULL, 'Database Table', NULL, 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(25, NULL, 'Database Table Column', NULL, 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(26, NULL, 'Query Rule', '/contentHaul/queryRule', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(27, NULL, 'Folder', '/contentHaul/folder', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+
+
+-- id > 100 for object types that will be child objects
+(101, 15, 'View', '/recordTypeHaul/recordType/a:detailViewCfg', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(102, 15, 'Related Action', '/recordTypeHaul/recordType/a:relatedActionCfg', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(103, 15, 'Record Action', '/recordTypeHaul/recordType/a:recordListActionCfg', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(104, 15, 'User Filter', '/recordTypeHaul/recordType/a:fieldCfg', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(105, 15, 'Source Filter', '/recordTypeHaul/recordType/a:sourceConfiguration', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
+;
 TRUNCATE TABLE `ADA_REFERENCE_DATA`;
 
 INSERT INTO `ADA_REFERENCE_DATA` (`ID`, `TYPE`, `VALUE`, `SORT_ORDER`, `IS_ACTIVE`, `CREATED_BY`, `CREATED_ON`, `MODIFIED_BY`, `MODIFIED_ON`) VALUES
