@@ -1,39 +1,27 @@
+-- Table structure for table `ADA_PROJECT_PREFIX_EVENT_HISTORY`
+--
 
-    create table `ADA_PROJECT_PREFIX_EVENT_TYPE` (
-       `ID` integer not null auto_increment,
-        `EVENT_NAME` varchar(255),
-        primary key (`ID`)
-    ) engine=InnoDB;
+CREATE TABLE IF NOT EXISTS `ADA_PROJECT_PREFIX_EVENT_HISTORY` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `RECORD_ID` int(11) DEFAULT NULL,
+  `EVENT_TYPE_ID` int(11) DEFAULT NULL,
+  `CREATED_BY` varchar(255) DEFAULT NULL,
+  `AUTOMATION_TYPE_ID` int(11) DEFAULT NULL,
+  `COMMENT` varchar(4000) DEFAULT NULL,
+  `CREATED_ON` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ADA_PROJECT_PREFIX_EVENT_HISTORY_RECORD_ID_FK` (`RECORD_ID`),
+  KEY `ADA_PROJECT_PREFIX_EVENT_HISTORY_EVENT_TYPE_ID_FK` (`EVENT_TYPE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
-    insert into `ADA_PROJECT_PREFIX_EVENT_TYPE`(EVENT_NAME)
-    values
-        ('Created Project Prefix'),
-        ('Updated Project Prefix'),
-        ('Commented on Project Prefix');
+--
+-- Constraints for dumped tables
+--
 
-    create table `ADA_PROJECT_PREFIX_EVENT_HISTORY` (
-       `ID` integer not null auto_increment,
-        `RECORD_ID` integer,
-        `EVENT_TYPE_ID` integer,
-        `USER` varchar(255),
-        `AUTOMATION_TYPE_ID` integer,
-        `COMMENT` varchar(4000),
-        `TIMESTAMP` datetime(6),
-        primary key (`ID`)
-    ) engine=InnoDB;
-
-    alter table `ADA_PROJECT_PREFIX_EVENT_HISTORY`
-        add constraint `ADA_PROJECT_PREFIX_EVENT_HISTORY_RECORD_ID_FK`
-        foreign key (`RECORD_ID`)
-        references `ADA_PROJECT_PREFIX` (`PREFIX_ID`)
-        on delete restrict,
-        add constraint `ADA_PROJECT_PREFIX_EVENT_HISTORY_EVENT_TYPE_ID_FK`
-        foreign key (`EVENT_TYPE_ID`)
-        references `ADA_PROJECT_PREFIX_EVENT_TYPE` (`ID`)
-        on delete restrict;
-
-
-    alter table `ADA_PROJECT_PREFIX_EVENT_HISTORY`
-        change column `USER` `CREATED_BY` varchar(255),
-        change column `TIMESTAMP` `CREATED_ON` datetime(6);
-
+--
+-- Constraints for table `ADA_PROJECT_PREFIX_EVENT_HISTORY`
+--
+ALTER TABLE `ADA_PROJECT_PREFIX_EVENT_HISTORY`
+  ADD CONSTRAINT `ADA_PROJECT_PREFIX_EVENT_HISTORY_EVENT_TYPE_ID_FK` FOREIGN KEY (`EVENT_TYPE_ID`) REFERENCES `ADA_PROJECT_PREFIX_EVENT_TYPE` (`ID`),
+  ADD CONSTRAINT `ADA_PROJECT_PREFIX_EVENT_HISTORY_RECORD_ID_FK` FOREIGN KEY (`RECORD_ID`) REFERENCES `ADA_PROJECT_PREFIX` (`PREFIX_ID`);
+COMMIT;
