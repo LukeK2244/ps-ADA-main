@@ -1,0 +1,39 @@
+
+    create table `ADA_PROJECT_PREFIX_EVENT_TYPE` (
+       `ID` integer not null auto_increment,
+        `EVENT_NAME` varchar(255),
+        primary key (`ID`)
+    ) engine=InnoDB;
+
+    insert into `ADA_PROJECT_PREFIX_EVENT_TYPE`(EVENT_NAME)
+    values
+        ('Created Project Prefix'),
+        ('Updated Project Prefix'),
+        ('Commented on Project Prefix');
+
+    create table `ADA_PROJECT_PREFIX_EVENT_HISTORY` (
+       `ID` integer not null auto_increment,
+        `RECORD_ID` integer,
+        `EVENT_TYPE_ID` integer,
+        `USER` varchar(255),
+        `AUTOMATION_TYPE_ID` integer,
+        `COMMENT` varchar(4000),
+        `TIMESTAMP` datetime(6),
+        primary key (`ID`)
+    ) engine=InnoDB;
+
+    alter table `ADA_PROJECT_PREFIX_EVENT_HISTORY`
+        add constraint `ADA_PROJECT_PREFIX_EVENT_HISTORY_RECORD_ID_FK`
+        foreign key (`RECORD_ID`)
+        references `ADA_PROJECT_PREFIX` (`PREFIX_ID`)
+        on delete restrict,
+        add constraint `ADA_PROJECT_PREFIX_EVENT_HISTORY_EVENT_TYPE_ID_FK`
+        foreign key (`EVENT_TYPE_ID`)
+        references `ADA_PROJECT_PREFIX_EVENT_TYPE` (`ID`)
+        on delete restrict;
+
+
+    alter table `ADA_PROJECT_PREFIX_EVENT_HISTORY`
+        change column `USER` `CREATED_BY` varchar(255),
+        change column `TIMESTAMP` `CREATED_ON` datetime(6);
+
