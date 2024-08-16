@@ -1,5 +1,4 @@
-
-    create table `ADA_PROJECT_INTRODUCTION` (
+CREATE TABLE IF NOT EXISTS  `ADA_PROJECT_INTRODUCTION` (
        `INTRODUCTION_ID` integer not null auto_increment,
         `PROJECT_ID` integer,
         `INTENDED_AUDIENCE` varchar(4000),
