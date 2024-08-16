@@ -1,0 +1,19 @@
+
+    create table `ADA_PROJECT_INTRODUCTION` (
+       `INTRODUCTION_ID` integer not null auto_increment,
+        `PROJECT_ID` integer,
+        `INTENDED_AUDIENCE` varchar(4000),
+        `SCOPE` varchar(4000),
+        `IS_ACTIVE` bit,
+        `CREATED_BY` varchar(255),
+        `CREATED_ON` datetime(6),
+        `UPDATED_BY` varchar(255),
+        `UPDATED_ON` datetime(6),
+        primary key (`INTRODUCTION_ID`)
+    ) engine=InnoDB;
+
+    alter table `ADA_PROJECT_INTRODUCTION`
+        add constraint `ADA_PROJECT_INTRODUCTION_PROJECT_ID_FK`
+        foreign key (`PROJECT_ID`)
+        references `ADA_PROJECT` (`PROJECT_ID`)
+        on delete restrict;
