@@ -80,7 +80,7 @@ INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `AT
 (282, 15, 'Description', '/recordTypeHaul/recordType/a:description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (283, 15, 'UUID', '/recordTypeHaul/recordType/@a:uuid', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (284, 15, 'Table Name', '/recordTypeHaul/recordType/a:sourceConfiguration/friendlyName/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(285, 15, 'xsi:type', '/recordTypeHaul/recordType/a:source/@xsi:type', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(285, 15, 'Data Source', '/recordTypeHaul/recordType/a:source/@xsi:type', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 -- 301-320 for report
 (301, 16, 'Name', '/tempoReportHaul/tempoReport/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (302, 16, 'Description', '/tempoReportHaul/tempoReport/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
