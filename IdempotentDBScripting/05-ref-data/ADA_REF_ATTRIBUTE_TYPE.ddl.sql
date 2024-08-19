@@ -59,19 +59,16 @@ INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `AT
 (222, 12, 'UUID', '/contentHaul/interface/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (223, 12, 'Description', '/contentHaul/interface/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 -- 241-260 for process model TODO
-(241, 13, 'Name', '/processModelHaul/process_model_port/pm/meta/name/string-map/pair/value/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(242, 13, 'UUID', '/processModelHaul/process_model_port/pm/meta/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(243, 13, 'Data Management (Clean Up Action)', '/processModelHaul/process_model_port/pm/meta/cleanup-action/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(244, 13, 'Data Management (Archive Delay)', '/processModelHaul/process_model_port/pm/meta/auto-archive-delay/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(245, 13, 'Data Management (Delete Delay)', '/processModelHaul/process_model_port/pm/meta/auto-delete-delay/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(246, 13, 'Swimlane Assignment', '/processModelHaul/process_model_port/pm/lanes/lane/isLaneAssignment/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(248, 13, 'Description', '/processModelHaul/process_model_port/pm/meta/desc/string-map/pair/value/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(249, 13, 'Display Name', '/processModelHaul/process_model_port/pm/meta/process-name/string-map/pair/value/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(250, 13, 'Alert - Custom Settings', '/processModelHaul/process_model_port/pm/meta/pm-notification-settings/custom-settings/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(251, 13, 'Alert - Notify Initiator', '/processModelHaul/process_model_port/pm/meta/pm-notification-settings/notify-initiator/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(252, 13, 'Alert - Notify Owner', '/processModelHaul/process_model_port/pm/meta/pm-notification-settings/notify-owner/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(253, 13, 'Alert - Recipients Expression', '/processModelHaul/process_model_port/pm/meta/pm-notification-settings/recipients-exp/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(254, 13, 'Alert - Notify users and groups', '/processModelHaul/process_model_port/pm/meta/pm-notification-settings/usersandgroups/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(241, 13, 'Name', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='name']/*[name()='string-map']/*[name()='pair']/*[name()='value'][1]/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(242, 13, 'UUID', "/*[name()='processModelHaul']/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='uuid']/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(243, 13, 'Data Management (Clean Up Action)', "/*[name()='processModelHaul']/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='cleanup-action']/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(244, 13, 'Data Management (Archive Delay)', "/*[name()='processModelHaul']/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='auto-archive-delay']/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(245, 13, 'Data Management (Delete Delay)', "/*[name()='processModelHaul']/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='auto-delete-delay']/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(250, 13, 'Alert - Custom Settings', "/*[name()='processModelHaul']/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='pm-notification-settings']/*[name()='custom-settings']/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(251, 13, 'Alert - Notify Initiator', "/*[name()='processModelHaul']/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='pm-notification-settings']/*[name()='notify-initiator']/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(252, 13, 'Alert - Notify Owner', "/*[name()='processModelHaul']/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='pm-notification-settings']/*[name()='notify-owner']/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(253, 13, 'Alert - Recipients Expression', "/*[name()='processModelHaul']/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='pm-notification-settings']/*[name()='recipients-exp']/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(254, 13, 'Alert - Notify users and groups', "/*[name()='processModelHaul']/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='pm-notification-settings']/*[name()='usersandgroups']/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 -- 261-280 for process report
 (261, 14, 'Name', '/contentHaul/report/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (262, 14, 'Description', '/contentHaul/report/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
@@ -137,5 +134,11 @@ INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `AT
 (582, 104, 'UUID', '/a:fieldCfg/a:uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (583, 104, 'description', '/a:fieldCfg/a:description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 -- 601-620 for source filters
-(601, 105, 'description', '/a:sourceConfiguration/sourceFilterExpr/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
+(601, 105, 'description', '/a:sourceConfiguration/sourceFilterExpr/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 621-640 for Process Model Locales
+(621, 106, 'Country', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='name']/*[name()='string-map']/*[name()='pair']/*[name()='locale']/@country", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(622, 106, 'Language', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='name']/*[name()='string-map']/*[name()='pair']/*[name()='locale']/@lang", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(623, 106, 'Name', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='name']/*[name()='string-map']/*[name()='pair']", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(624, 106, 'Description', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='desc']/*[name()='string-map']/*[name()='pair']", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(625, 106, 'Display Name', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='process-name']/*[name()='string-map']/*[name()='pair']", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
 ;
