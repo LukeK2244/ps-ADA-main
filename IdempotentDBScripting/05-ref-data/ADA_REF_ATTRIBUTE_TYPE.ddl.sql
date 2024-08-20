@@ -15,9 +15,9 @@ INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `AT
 (42, 3, 'UUID', '/dataStoreHaul/dataStore/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (43, 3, 'Description', '/dataStoreHaul/dataStore/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 -- 61-80 for data type TODO
-(61, 4, 'Name', '/*[local-name()=\'schema\']/*[local-name()=\'complexType\']/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(62, 4, 'UUID', '/*[local-name()=\'schema\']/*[local-name()=\'complexType\']/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(63, 4, 'Namespace', '/*[local-name()=\'schema\']/@targetNamespace', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(61, 4, 'Name', '/xsd:schema/xsd:complexType/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(62, 4, 'UUID', '/xsd:schema/xsd:complexType/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(63, 4, 'Namespace', '/xsd:schema/@targetNamespace', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 -- 81-100 for decision
 (81, 5, 'Name', '/contentHaul/decision/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (82, 5, 'UUID', '/contentHaul/decision/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
@@ -140,5 +140,7 @@ INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `AT
 (622, 106, 'Language', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='name']/*[name()='string-map']/*[name()='pair']/*[name()='locale']/@lang", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (623, 106, 'Name', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='name']/*[name()='string-map']/*[name()='pair']", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (624, 106, 'Description', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='desc']/*[name()='string-map']/*[name()='pair']", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(625, 106, 'Display Name', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='process-name']/*[name()='string-map']/*[name()='pair']", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
+(625, 106, 'Display Name', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='process-name']/*[name()='string-map']/*[name()='pair']", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 641-660 for Data Type Fields
+(641, 107, 'Name', '/xsd:element/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
 ;
