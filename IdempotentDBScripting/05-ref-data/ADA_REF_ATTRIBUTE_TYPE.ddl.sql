@@ -10,6 +10,7 @@ INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `AT
 (22, 2, 'UUID', '/contentHaul/constant/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (23, 2, 'Description', '/contentHaul/constant/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (24, 2, 'Type', '/contentHaul/constant/typedValue/type/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(25, 2, 'Value', '/contentHaul/constant/typedValue/value/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 -- 41-60 for data store
 (41, 3, 'Name', '/dataStoreHaul/dataStore/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (42, 3, 'UUID', '/dataStoreHaul/dataStore/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
