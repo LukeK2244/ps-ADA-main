@@ -143,5 +143,21 @@ INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `AT
 (624, 106, 'Description', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='desc']/*[name()='string-map']/*[name()='pair']", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (625, 106, 'Display Name', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='process-name']/*[name()='string-map']/*[name()='pair']", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 -- 641-660 for Data Type Fields
-(641, 107, 'Name', '/xsd:element/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
+(641, 107, 'Name', '/xsd:element/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 661-680 for Record Type Fields
+(661, 108, 'Field Name', '/field/fieldName/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(662, 108, 'UUID', '/field/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(663, 108, 'Field Type', '/field/type/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(664, 108, 'Source Field Name', '/field/sourceFieldName/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(665, 108, 'Source Field Type', '/field/sourceFieldType/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(666, 108, 'isRecordId', '/field/isRecordId/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(667, 108, 'isUnique', '/field/isUnique/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(668, 108, 'isCustomField', '/field/isCustomField/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 681-700 for Record Type Relationships
+(701, 108, 'UUID', '/a:recordRelationshipCfg/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(702, 108, 'Relationship Name', '/a:recordRelationshipCfg/relationshipName/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(703, 108, 'Target Record Type UUID', '/a:recordRelationshipCfg/targetRecordTypeUuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(704, 108, 'Relationship Type', '/a:recordRelationshipCfg/relationshipType/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(705, 108, 'Source Record Type Field UUID', '/a:recordRelationshipCfg/relationshipData/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(706, 108, 'Target Record Type Field UUID', '/a:recordRelationshipCfg/relationshipData/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
 ;
