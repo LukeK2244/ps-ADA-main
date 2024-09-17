@@ -449,6 +449,8 @@ CREATE TABLE IF NOT EXISTS `ADA_PROJECT` (
 CALL IDEM_SP_DDL_UTIL_ADD_FIELD_IF_NOT_EXISTS ('ADA_PROJECT', 'PRIMARY_LOCALE', 'VARCHAR(255) DEFAULT NULL', 'DESCRIPTION');
 CALL IDEM_SP_DDL_UTIL_ADD_FIELD_IF_NOT_EXISTS ('ADA_PROJECT', 'RECORD_TYPE_ERD_IMG_ID', 'INT(11) DEFAULT NULL', 'DESCRIPTION');
 CALL IDEM_SP_DDL_UTIL_ADD_FIELD_IF_NOT_EXISTS ('ADA_PROJECT', 'CDT_ERD_IMG_ID', 'INT(11) DEFAULT NULL', 'DESCRIPTION');
+CALL IDEM_SP_DDL_UTIL_ADD_FIELD_IF_NOT_EXISTS ('ADA_PROJECT', 'INSTALL_LOCATION', 'VARCHAR(255) DEFAULT NULL', 'DESCRIPTION');
+
 CREATE TABLE IF NOT EXISTS `ADA_REF_ATTRIBUTE_TYPE` (
  `ATTRIBUTE_TYPE_ID` int(11) NOT NULL AUTO_INCREMENT,
  `OBJECT_TYPE_ID` int(11) DEFAULT NULL,
@@ -747,7 +749,23 @@ INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `AT
 (624, 106, 'Description', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='desc']/*[name()='string-map']/*[name()='pair']", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (625, 106, 'Display Name', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='process-name']/*[name()='string-map']/*[name()='pair']", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 -- 641-660 for Data Type Fields
-(641, 107, 'Name', '/xsd:element/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
+(641, 107, 'Name', '/xsd:element/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 661-680 for Record Type Fields
+(661, 108, 'Name', '/field/fieldName/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(662, 108, 'UUID', '/field/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(663, 108, 'Field Type', '/field/type/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(664, 108, 'Source Field Name', '/field/sourceFieldName/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(665, 108, 'Source Field Type', '/field/sourceFieldType/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(666, 108, 'isRecordId', '/field/isRecordId/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(667, 108, 'isUnique', '/field/isUnique/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(668, 108, 'isCustomField', '/field/isCustomField/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 681-700 for Record Type Relationships
+(701, 109, 'UUID', '/a:recordRelationshipCfg/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(702, 109, 'Name', '/a:recordRelationshipCfg/relationshipName/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(703, 109, 'Target Record Type UUID', '/a:recordRelationshipCfg/targetRecordTypeUuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(704, 109, 'Relationship Type', '/a:recordRelationshipCfg/relationshipType/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(705, 109, 'Source Record Type Field UUID', '/a:recordRelationshipCfg/relationshipData/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(706, 109, 'Target Record Type Field UUID', '/a:recordRelationshipCfg/relationshipData/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
 ;
 TRUNCATE TABLE `ADA_REF_OBJECT_TYPE`;
 
@@ -788,7 +806,9 @@ INSERT INTO `ADA_REF_OBJECT_TYPE` (`OBJECT_TYPE_ID`, `PARENT_OBJECT_TYPE_ID`, `V
 (104, 15, 'User Filter', '/recordTypeHaul/recordType/a:fieldCfg', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (105, 15, 'Source Filter', '/recordTypeHaul/recordType/a:sourceConfiguration', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (106, 13, 'Locale', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='name']/*[name()='string-map']/*[name()='pair']/*[name()='locale']/@lang", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(107, 4, 'Field', "/xsd:schema/xsd:complexType/xsd:sequence/xsd:element", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
+(107, 4, 'Field', "/xsd:schema/xsd:complexType/xsd:sequence/xsd:element", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(108, 15, 'Record Field', "/recordTypeHaul/recordType/a:sourceConfiguration/field", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(109, 15, 'Record Relationship', "/recordTypeHaul/recordType/a:recordRelationshipCfg", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
 ;
 TRUNCATE TABLE `ADA_REFERENCE_DATA`;
 
@@ -922,6 +942,9 @@ INSERT INTO `ADA_REFERENCE_DATA` (`ID`, `TYPE`, `VALUE`, `SORT_ORDER`, `IS_ACTIV
 (807, 'ROLE_MAP_TYPE_ID', 'Deny', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (808, 'ROLE_MAP_TYPE_ID', 'No Access', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (809, 'ROLE_MAP_TYPE_ID', 'Unknown Role', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(810, 'ROLE_MAP_TYPE_ID', 'Secured By Group', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(811, 'ROLE_MAP_TYPE_ID', 'Secured By Field', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(812, 'ROLE_MAP_TYPE_ID', 'Secured By Related Record', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 
 -- Id 851 for ROLE_MAP_VALUE
 (851, 'ROLE_MAP_VALUE', 'readers', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
@@ -939,7 +962,10 @@ INSERT INTO `ADA_REFERENCE_DATA` (`ID`, `TYPE`, `VALUE`, `SORT_ORDER`, `IS_ACTIV
 (863, 'ROLE_MAP_VALUE', 'record_type_administrator', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (864, 'ROLE_MAP_VALUE', 'record_type_data_steward', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (865, 'ROLE_MAP_VALUE', 'record_type_viewer', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(866, 'ROLE_MAP_VALUE', 'record_type_editor', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP);
+(866, 'ROLE_MAP_VALUE', 'record_type_editor', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(867, 'ROLE_MAP_VALUE', 'FIELDS', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(868, 'ROLE_MAP_VALUE', 'GROUPS', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(869, 'ROLE_MAP_VALUE', 'INHERIT', '1', '1', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP);
 -- TRUNCATE TABLE `AAA_MY_TABLE_1`;
 
 -- INSERT INTO `AAA_MY_TABLE_1` (`AAA_MY_TABLE_1_ID`, `NAME`, `CREATED_ON`, `CREATED_BY`, `UPDATED_ON`, `UPDATED_BY`, `IS_ACTIVE`) VALUES
