@@ -15,11 +15,11 @@ INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `AT
 (41, 3, 'Name', '/dataStoreHaul/dataStore/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (42, 3, 'UUID', '/dataStoreHaul/dataStore/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (43, 3, 'Description', '/dataStoreHaul/dataStore/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
--- 61-80 for data type TODO
+-- 61-80 for data type
 (61, 4, 'Name', '/xsd:schema/xsd:complexType/@name', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(62, 4, 'UUID', '/*[name()='xsd:schema']/*[name()='xsd:complexType']/*[name()='xsd:annotation']/*[name()='xsd:appinfo']/*[name()='ns2:Metadata']/*[name()='ns2:versionUuid']/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(62, 4, 'UUID', "/*[name()='xsd:schema']/*[name()='xsd:complexType']/*[name()='xsd:annotation']/*[name()='xsd:appinfo']/*[name()='ns2:Metadata']/*[name()='ns2:versionUuid']/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (63, 4, 'Namespace', '/xsd:schema/@targetNamespace', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(64, 4, 'Description', '/*[name()='xsd:schema']/*[name()='xsd:complexType']/*[name()='xsd:annotation']/*[name()='xsd:documentation']/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(64, 4, 'Description', "/*[name()='xsd:schema']/*[name()='xsd:complexType']/*[name()='xsd:annotation']/*[name()='xsd:documentation']/text()", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 -- 81-100 for decision
 (81, 5, 'Name', '/contentHaul/decision/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (82, 5, 'UUID', '/contentHaul/decision/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
