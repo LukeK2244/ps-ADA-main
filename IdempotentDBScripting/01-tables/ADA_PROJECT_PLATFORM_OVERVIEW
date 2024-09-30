@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS  `ADA_PROJECT_PLATFORM_OVERVIEW` (
+       `PLATFORM_OVERVIEW_ID` INT(11) NOT NULL AUTO_INCREMENT,
+        `PROJECT_ID` INT(11),
+        `OVERVIEW` varchar(4000),
+        `IS_ACTIVE` TINYINT(1) NOT NULL,
+        `CREATED_BY` varchar(255) NOT NULL,
+        `CREATED_ON` datetime(6) NOT NULL,
+        `UPDATED_BY` varchar(255) NOT NULL,
+        `UPDATED_ON` datetime(6) NOT NULL,
+        PRIMARY KEY (`ARCHITECTURE_OVERVIEW_ID`)
+    ) engine=InnoDB;
+
+    alter table `ADA_PROJECT_PLATFORM_OVERVIEW`
+        add constraint `ADA_PROJECT_PLATFORM_OVERVIEW_PROJECT_ID_FK`
+        foreign key (`PROJECT_ID`)
+        references `ADA_PROJECT` (`PROJECT_ID`)
+        on delete restrict;
