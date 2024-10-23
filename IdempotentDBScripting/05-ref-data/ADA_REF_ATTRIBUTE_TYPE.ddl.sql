@@ -157,7 +157,12 @@ INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `AT
 (666, 108, 'isRecordId', '/field/isRecordId/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (667, 108, 'isUnique', '/field/isUnique/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (668, 108, 'isCustomField', '/field/isCustomField/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
--- 681-700 for Record Type Relationships
+-- 681-700 for AI Skill
+(681, 28, 'Name', '/aiSkillRemoteHaul/remoteDesignObject/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(682, 28, 'UUID', '/aiSkillRemoteHaul/remoteDesignObject/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(683, 28, 'Description', '/aiSkillRemoteHaul/remoteDesignObject/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- (684, 28, 'Type', '/aiSkillRemoteHaul/remoteDesignObject/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 701-720 for Record Type Relationships
 (701, 109, 'UUID', '/a:recordRelationshipCfg/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (702, 109, 'Name', '/a:recordRelationshipCfg/relationshipName/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (703, 109, 'Target Record Type UUID', '/a:recordRelationshipCfg/targetRecordTypeUuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),

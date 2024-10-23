@@ -28,6 +28,7 @@ INSERT INTO `ADA_REF_OBJECT_TYPE` (`OBJECT_TYPE_ID`, `PARENT_OBJECT_TYPE_ID`, `V
 (25, NULL, 'Database Table Column', NULL, 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (26, NULL, 'Query Rule', '/contentHaul/queryRule', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (27, NULL, 'Folder', '/contentHaul/folder', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(28, NULL, 'AI Skill', '/aiSkillRemoteHaul', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 
 
 -- id > 100 for object types that will be child objects
