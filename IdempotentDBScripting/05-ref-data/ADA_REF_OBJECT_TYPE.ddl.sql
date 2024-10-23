@@ -40,5 +40,7 @@ INSERT INTO `ADA_REF_OBJECT_TYPE` (`OBJECT_TYPE_ID`, `PARENT_OBJECT_TYPE_ID`, `V
 (106, 13, 'Locale', "/processModelHaul/*[name()='process_model_port']/*[name()='pm']/*[name()='meta']/*[name()='name']/*[name()='string-map']/*[name()='pair']/*[name()='locale']/@lang", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (107, 4, 'Field', "/xsd:schema/xsd:complexType/xsd:sequence/xsd:element", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (108, 15, 'Record Field', "/recordTypeHaul/recordType/a:sourceConfiguration/field", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(109, 15, 'Record Relationship', "/recordTypeHaul/recordType/a:recordRelationshipCfg", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
+(109, 15, 'Record Relationship', "/recordTypeHaul/recordType/a:recordRelationshipCfg", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(110, 28, 'Model', "models", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(111, 28, 'Features Enabled', "featuresEnabled", 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
 ;

@@ -161,12 +161,20 @@ INSERT INTO `ADA_REF_ATTRIBUTE_TYPE` (`ATTRIBUTE_TYPE_ID`, `OBJECT_TYPE_ID`, `AT
 (681, 28, 'Name', '/aiSkillRemoteHaul/remoteDesignObject/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (682, 28, 'UUID', '/aiSkillRemoteHaul/remoteDesignObject/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (683, 28, 'Description', '/aiSkillRemoteHaul/remoteDesignObject/description/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
--- (684, 28, 'Type', '/aiSkillRemoteHaul/remoteDesignObject/name/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(684, 28, 'Type', '/aiSkillRemoteHaul/remoteDesignObject/content/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 -- 701-720 for Record Type Relationships
 (701, 109, 'UUID', '/a:recordRelationshipCfg/uuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (702, 109, 'Name', '/a:recordRelationshipCfg/relationshipName/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (703, 109, 'Target Record Type UUID', '/a:recordRelationshipCfg/targetRecordTypeUuid/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (704, 109, 'Relationship Type', '/a:recordRelationshipCfg/relationshipType/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
 (705, 109, 'Source Record Type Field UUID', '/a:recordRelationshipCfg/relationshipData/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
-(706, 109, 'Target Record Type Field UUID', '/a:recordRelationshipCfg/relationshipData/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
+(706, 109, 'Target Record Type Field UUID', '/a:recordRelationshipCfg/relationshipData/text()', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 721-740 for AI Skill Models (done using index() rather than xpath)
+(721, 28, 'Type', 'type', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(722, 28, 'UUID', 'id', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(723, 28, 'Model', 'model', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(724, 28, 'Prompt', 'prompt', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+(725, 28, 'Temperature', 'temperature', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
+-- 741-760 for AI Skill Models (done using index() rather than xpath)
+(741, 28, 'Name', 'featuresEnabled', 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP)
 ;
